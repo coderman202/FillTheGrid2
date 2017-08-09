@@ -20,6 +20,10 @@ import butterknife.ButterKnife;
 
 public class GameActivity extends AppCompatActivity {
 
+    public static String LOG_TAG = GameActivity.class.getSimpleName();
+
+    public static String GAME_STATE = "Game State";
+
     @BindView(R.id.game_grid_layout)
     GridLayout gameGrid;
 
@@ -34,15 +38,26 @@ public class GameActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        game = new Game(Game.LEVEL_BEGINNER, Game.GAME_SIZE_LARGE);
+        if (savedInstanceState == null) {
+            game = new Game(Game.LEVEL_BEGINNER, Game.GAME_SIZE_LARGE);
+        } else {
+            game = savedInstanceState.getParcelable(GAME_STATE);
+        }
+        initGameGrid();
 
+
+    }
+
+    /**
+     * Set up the grid
+     */
+    private void initGameGrid() {
         gridItemList = game.getGridItemList();
 
         gameGrid.setColumnCount((int)Math.sqrt(game.getGridSize()));
 
         for (int i = 0; i < gridItemList.size(); i++) {
             final ImageView gridItemView = new ImageView(this);
-
 
             GradientDrawable gridSquare = (GradientDrawable) getDrawable(R.drawable.grid_square);
             gridSquare.setColor(ContextCompat.getColor(this, gridItemList.get(i).getColorResID()));
@@ -64,8 +79,18 @@ public class GameActivity extends AppCompatActivity {
                 }
             });
         }
+        // Check if the grid is full, fill the background in too.
+        if (game.isComplete()) {
+            gameGrid.setBackgroundResource(gridItemList.get(1).getColorResID());
+        } else {
+            gameGrid.setBackground(null);
+        }
     }
 
+
+    /**
+     * Updates the grid with the latest colours.
+     */
     public void updateGameGridWithNewColors(){
         gridItemList = game.getGridItemList();
         for (int i = 0; i < gridItemList.size(); i++) {
@@ -75,8 +100,24 @@ public class GameActivity extends AppCompatActivity {
         }
         game.updateGridItemList();
 
+        // Check if the grid is all the same colour.
         if(game.isComplete()){
-            Toast.makeText(this, "Woohoo!", Toast.LENGTH_LONG);
+            gameGrid.setBackgroundResource(gridItemList.get(1).getColorResID());
+            Toast.makeText(this, "Congratulations! You filled the grid!", Toast.LENGTH_LONG).show();
+        } else {
+            gameGrid.setBackground(null);
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(GAME_STATE, game);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle inState) {
+        game = inState.getParcelable(GAME_STATE);
+        //initGameGrid();
+    }
+
 }
