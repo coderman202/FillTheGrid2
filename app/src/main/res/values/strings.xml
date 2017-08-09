@@ -1,0 +1,55 @@
+<resources xmlns:tools="http://schemas.android.com/tools"
+           xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Fill The Grid</string>
+
+    <string name="choice">Choose difficulty level:</string>
+
+    <string name="welcome">Welcome to Fill the Grid! Fill the grid with all the same colour
+        in as few moves as possible. Good luck!</string>
+
+    <string name="howto">How to play</string>
+
+    <string name="instructions">When you press on any button, all the vertically and horizontally
+        neighbouring buttons will change to the colour of the pressed button. If you press on a
+        button which is in a group of buttons which are all the same colour, the buttons surrounding
+        it will be changed in the same fashion.</string>
+
+
+    <string-array name="set_colours">
+        <item>Beginner</item>
+        <item>Novice</item>
+        <item>Student</item>
+        <item>Intermediate</item>
+        <item>Advanced</item>
+        <item>Expert</item>
+        <item>Wizard</item>
+        <item>God</item>
+    </string-array>
+
+    <string-array name="good_luck_message">
+        <item>Good luck, shouldn\'t be too hard!</item>
+        <item>Baby steps, but at least it\'s a bit more of a challenge!</item>
+        <item>I like your enthusiasm, good luck!</item>
+        <item>Now you\'re getting more ambitious, best of luck!</item>
+        <item>You\'re really taking on a challenge now.</item>
+        <item>Good luck Einstein!</item>
+        <item>If you complete this, I shall worship you!</item>
+    </string-array>
+
+    <!--STRINGS FOR DEALING WITH EXCEPTIONS -->
+    <string name="url_exception">Problem with the request URL</string>
+    <string name="response_code_exception" tools:ignore="PluralsCandidate">
+        Error: <xliff:g name="response_code">%d</xliff:g> response code received
+    </string>
+    <string name="json_exception">Problem retrieving JSON correctly</string>
+    <string name="parse_exception">Invalid date or problem with date formatting</string>
+    <string name="http_request_exception">HTTP request error</string>
+    <string name="no_network_connection">
+        Error. No network connection or unable to connect to network.
+    </string>
+    <string name="null_pointer_exception">Error. No response code found.</string>
+    <string name="keyboard_hide_exception">Error hiding keyboard</string>
+    <string name="malformed_url_exception">Problem with the thumbnail URL</string>
+    <string name="io_exception">Unknown IO exception</string>
+    <string name="start_game">Start Game</string>
+</resources>

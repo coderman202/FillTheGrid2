@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="standard_layout_margin">16dp</dimen>
+
+    <!--BUTTON DIMENS-->
+    <dimen name="button_padding">4dp</dimen>
+    <dimen name="button_margin">8dp</dimen>
+
+    <dimen name="button_drawable_padding">4dp</dimen>
+
+</resources>

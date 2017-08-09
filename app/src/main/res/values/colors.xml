@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#311B92</color>
+    <color name="colorPrimaryDark">#512DA8</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorBackground">#F3EFF5</color>
+
+    <color name="base_font_color">#000000</color>
+
+    <color name="button_color">#1A237E</color>
+
+    <!--Color gradient for buttons-->
+    <color name="button_end_color">#311B92</color>
+    <color name="button_centre_color">#5E35B1</color>
+    <color name="button_start_color">#7C4DFF</color>
+
+    <color name="button_text_color">#FFFFFF</color>
+
+    <!--GAME GRID COLORS-->
+    <color name="grid_blue">#304FFE</color>
+    <color name="grid_grey_blue">#455A64</color>
+    <color name="grid_orange">#FF6D00</color>
+    <color name="grid_red">#D50000</color>
+    <color name="grid_teal">#00695C</color>
+    <color name="grid_purple">#AA00FF</color>
+    <color name="grid_yellow">#FFD600</color>
+    <color name="grid_green">#388E3C</color>
+    <color name="grid_black">#000000</color>
+    <color name="grid_pink">#EC407A</color>
+    <color name="grid_deep_purple">#6200EA</color>
+    <color name="grid_brown">#5D4037</color>
+</resources>
