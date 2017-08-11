@@ -40,13 +40,17 @@ public class Game implements Parcelable {
      */
     public static int LEVEL_EXPERT = 10;
     /**
+     * The constant LEVEL_GENIUS.
+     */
+    public static int LEVEL_GENIUS = 11;
+    /**
      * The constant LEVEL_WIZARD.
      */
-    public static int LEVEL_WIZARD = 11;
+    public static int LEVEL_WIZARD = 12;
     /**
      * The constant LEVEL_GOD.
      */
-    public static int LEVEL_GOD = 12;
+    public static int LEVEL_GOD = 13;
 
     /**
      * The constant GAME_SIZE_SMALL.

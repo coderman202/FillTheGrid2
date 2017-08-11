@@ -20,7 +20,8 @@ public final class GameGridUtils {
     private static Integer[] colorArray = new Integer[]{
             R.color.grid_black, R.color.grid_blue, R.color.grid_red, R.color.grid_green,
             R.color.grid_yellow, R.color.grid_purple, R.color.grid_orange, R.color.grid_grey_blue,
-            R.color.grid_teal, R.color.grid_pink, R.color.grid_brown, R.color.grid_deep_purple
+            R.color.grid_teal, R.color.grid_pink, R.color.grid_brown, R.color.grid_deep_purple,
+            R.color.grid_light_green
     };
 
     /**

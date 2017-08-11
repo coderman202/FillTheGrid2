@@ -15,13 +15,14 @@
         it will be changed in the same fashion.</string>
 
 
-    <string-array name="set_colours">
+    <string-array name="levels_array">
         <item>Beginner</item>
         <item>Novice</item>
         <item>Student</item>
         <item>Intermediate</item>
         <item>Advanced</item>
         <item>Expert</item>
+        <item>Genius</item>
         <item>Wizard</item>
         <item>God</item>
     </string-array>

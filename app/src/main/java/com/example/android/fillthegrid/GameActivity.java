@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 
 public class GameActivity extends AppCompatActivity {
 
+    public static final String CHOSEN_LEVEL = "Chosen Level";
     public static String LOG_TAG = GameActivity.class.getSimpleName();
 
     public static String GAME_STATE = "Game State";
@@ -38,8 +39,10 @@ public class GameActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        int levelChosen = getIntent().getIntExtra(CHOSEN_LEVEL, 0);
+
         if (savedInstanceState == null) {
-            game = new Game(Game.LEVEL_BEGINNER, Game.GAME_SIZE_LARGE);
+            game = new Game(levelChosen, Game.GAME_SIZE_LARGE);
         } else {
             game = savedInstanceState.getParcelable(GAME_STATE);
         }
