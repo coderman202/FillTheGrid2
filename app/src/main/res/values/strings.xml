@@ -12,7 +12,9 @@
     <string name="instructions">When you press on any button, all the vertically and horizontally
         neighbouring buttons will change to the colour of the pressed button. If you press on a
         button which is in a group of buttons which are all the same colour, the buttons surrounding
-        it will be changed in the same fashion.</string>
+        it will be changed in the same fashion. You cannot press the same colour button twice.</string>
+
+    <string name="move_count">Moves: <xliff:g name="number_moves" example="5">%d</xliff:g></string>
 
 
     <string-array name="levels_array">

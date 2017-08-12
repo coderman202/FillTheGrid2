@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:layout_margin="@dimen/standard_layout_margin"
+    android:weightSum="8"
     tools:context="com.example.android.fillthegrid.MainActivity">
 
     <TextView
@@ -15,17 +17,40 @@
         android:text="@string/welcome"
         android:textAlignment="center"
         android:textAppearance="@style/StandardFontStyle"
-        app:layout_constraintVertical_chainStyle="spread_inside"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_weight="2"/>
 
-    <Spinner
-        android:id="@+id/choose_level_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/welcome_message"
-        app:layout_constraintBottom_toTopOf="@+id/start_game"/>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:layout_weight="5">
+
+        <ImageView
+            android:id="@+id/arrow_left"
+            android:layout_width="@dimen/level_icon_height_width"
+            android:layout_height="@dimen/level_icon_height_width"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_left"/>
+
+        <org.malcdevelop.cyclicview.CyclicView
+            android:id="@+id/level_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/cyclic_view_height"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/arrow_right"
+            android:layout_width="@dimen/level_icon_height_width"
+            android:layout_height="@dimen/level_icon_height_width"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right"/>
+
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/start_game"
@@ -33,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/start_game"
-        app:layout_constraintTop_toBottomOf="@id/choose_level_spinner"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_gravity="bottom"
+        android:layout_weight="1"/>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -33,4 +33,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.+'
     compile 'com.jakewharton:butterknife:8.6.0'
     apt 'com.jakewharton:butterknife-compiler:8.6.0'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
+    compile 'com.github.pozitiffcat:cyclicview:1.0.4'
 }

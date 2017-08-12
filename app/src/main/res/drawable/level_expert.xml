@@ -2,17 +2,17 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
         android:viewportWidth="48"
         android:viewportHeight="48"
-        android:width="40dp"
-        android:height="40dp">
+        android:width="30dp"
+        android:height="30dp">
     <group
         android:scaleX="0.1"
         android:scaleY="-0.1"
         android:translateY="48">
         <path
             android:pathData="M133 362C76 331 30 302 30 299c0 -3 47 -31 105 -63l105 -57 84 45c45 26 86 46 90 46 3 0 6 -29 6 -65 0 -58 2 -65 20 -65 18 0 20 7 20 79l0 80 -110 60c-61 34 -112 61 -113 60 -1 0 -48 -26 -104 -57z"
-            android:fillColor="#000000"/>
+            android:fillColor="@color/icon_black"/>
         <path
             android:pathData="M100 177c0 -39 5 -49 35 -75 62 -55 151 -55 211 1 31 29 35 37 32 75l-3 42 -68 -41 -67 -40 -63 37c-34 20 -65 39 -69 41 -5 2 -8 -16 -8 -40z"
-            android:fillColor="#000000"/>
+            android:fillColor="@color/icon_black"/>
     </group>
 </vector>

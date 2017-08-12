@@ -1,15 +1,22 @@
 package com.example.android.fillthegrid;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Spinner;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.android.fillthegrid.adapters.LevelChooserSpinnerAdapter;
+import com.example.android.fillthegrid.utils.GameSetupUtils;
+
+import org.malcdevelop.cyclicview.CyclicFragmentAdapter;
+import org.malcdevelop.cyclicview.CyclicView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,18 +29,21 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
 
-    public static final String CHOSEN_LEVEL = "Chosen Level";
+
     @BindView(R.id.start_game) TextView startGameView;
-    @BindView(R.id.choose_level_spinner)
-    Spinner levelChooser;
+
     @BindArray(R.array.levels_array)
     String[] levelsArray;
 
-    List<String> levelList = new ArrayList<>();
+    public static List<String> levelList = new ArrayList<>();
 
-    LevelChooserSpinnerAdapter adapter;
 
+    public static final String CHOSEN_LEVEL = "Chosen Level";
     int levelChosen;
+
+    @BindView(R.id.level_selector)
+    CyclicView levelSelectorView;
+    CyclicPageAdapter cyclicPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,32 +52,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ButterKnife.bind(this);
 
-        initLevelChooserSpinner();
+        initCyclicViewPager();
+
 
         startGameView.setOnClickListener(this);
-
     }
 
-    /**
-     * Set up the drop down list for the user to choose the level.
-     */
-    private void initLevelChooserSpinner() {
+    private void initCyclicViewPager() {
         levelList = Arrays.asList(levelsArray);
 
-        adapter = new LevelChooserSpinnerAdapter(this, levelList);
-        levelChooser.setAdapter(adapter);
-
-        levelChooser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        cyclicPageAdapter = new CyclicPageAdapter(this, getSupportFragmentManager()) {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                levelChosen = i + 5;
+            protected Fragment createFragment(int i) {
+                return LevelSelectorFragment.newInstance(i);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                levelChosen = 5;
+            public int getItemsCount() {
+                return levelList.size();
             }
-        });
+        };
+
+        levelSelectorView.setAdapter(cyclicPageAdapter);
     }
 
     @Override
@@ -77,9 +83,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(id){
             case R.id.start_game:
                 Intent intent = new Intent(this, GameActivity.class);
+                levelChosen = levelSelectorView.getCurrentPosition() + 5;
                 intent.putExtra(CHOSEN_LEVEL, levelChosen);
                 Toast.makeText(this, levelList.get(levelChosen - 5), Toast.LENGTH_LONG).show();
                 startActivity(intent);
+        }
+    }
+
+    /**
+     * A placeholder fragment containing the chosen level.
+     */
+    public static class LevelSelectorFragment extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+
+        @BindView(R.id.level_text)
+        TextView levelView;
+        @BindView(R.id.level_icon)
+        ImageView iconView;
+
+        public LevelSelectorFragment() {
+        }
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static LevelSelectorFragment newInstance(int sectionNumber) {
+            LevelSelectorFragment fragment = new LevelSelectorFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                                 final Bundle savedInstanceState) {
+            final View rootView = inflater.inflate(R.layout.level_selector_fragment, container, false);
+
+            ButterKnife.bind(this, rootView);
+
+            int position = getArguments().getInt(ARG_SECTION_NUMBER);
+
+            levelView.setText(levelList.get(position));
+            iconView.setImageResource(GameSetupUtils.getLevelDrawableResID(position));
+
+            return rootView;
+        }
+    }
+
+    /**
+     * A {@link org.malcdevelop.cyclicview.CyclicFragmentAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    private abstract class CyclicPageAdapter extends CyclicFragmentAdapter {
+
+        CyclicPageAdapter(Context context, FragmentManager fm) {
+            super(context, fm);
         }
     }
 }

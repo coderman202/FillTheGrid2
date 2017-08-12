@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#311B92</color>
     <color name="colorPrimaryDark">#512DA8</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FFFFFF</color>
     <color name="colorBackground">#F3EFF5</color>
 
     <color name="base_font_color">#000000</color>
@@ -29,5 +29,18 @@
     <color name="grid_pink">#EC407A</color>
     <color name="grid_deep_purple">#6200EA</color>
     <color name="grid_brown">#5D4037</color>
-    <color name="grid_light_green">#B2FF59</color>
+    <color name="grid_light_green">#AEEA00</color>
+
+    <!--LEVEL ICON COLORS-->
+    <color name="icon_black">#000000</color>
+    <color name="icon_yellow">#FFEA00</color>
+    <color name="icon_orange">#F6C358</color>
+    <color name="icon_orange2">#FCD462</color>
+    <color name="icon_orange3">#F0C419</color>
+    <color name="icon_red">#D50000</color>
+    <color name="icon_dark_teal">#004D40</color>
+    <color name="icon_dark_blue">#1A237E</color>
+    <color name="icon_purple">#6A1B9A</color>
+    <color name="icon_dark_purple">#4A148C</color>
+    <color name="icon_light_purple">#CE93D8</color>
 </resources>

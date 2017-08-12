@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:weightSum="3">
+
+    <ImageView
+        android:id="@+id/level_icon"
+        android:layout_width="@dimen/level_icon_height_width"
+        android:layout_height="@dimen/level_icon_height_width"
+        android:layout_weight="2"
+        tools:src="@drawable/level_genius"/>
+
+    <TextView
+        android:id="@+id/level_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/StandardFontStyle"
+        android:textSize="@dimen/level_text_size"
+        android:padding="@dimen/level_text_view_padding"
+        android:gravity="center"
+        tools:text="Genius"
+        android:layout_weight="1"/>
+
+</LinearLayout>
