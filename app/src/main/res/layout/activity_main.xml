@@ -33,13 +33,16 @@
             android:layout_height="@dimen/level_icon_height_width"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:contentDescription="@string/content_desc_left_arrow"
             android:src="@drawable/arrow_left"/>
 
         <org.malcdevelop.cyclicview.CyclicView
             android:id="@+id/level_selector"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/cyclic_view_height"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true">
+
+        </org.malcdevelop.cyclicview.CyclicView>
 
         <ImageView
             android:id="@+id/arrow_right"
@@ -47,6 +50,7 @@
             android:layout_height="@dimen/level_icon_height_width"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:contentDescription="@string/content_desc_right_arrow"
             android:src="@drawable/arrow_right"/>
 
     </RelativeLayout>

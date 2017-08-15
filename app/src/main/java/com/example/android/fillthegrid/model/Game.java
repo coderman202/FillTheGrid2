@@ -52,6 +52,11 @@ public class Game implements Parcelable {
      */
     public static int LEVEL_GOD = 13;
 
+
+    /**
+     * The constant GAME_SIZE_MINI.
+     */
+    public static int GAME_SIZE_MINI = 25;
     /**
      * The constant GAME_SIZE_SMALL.
      */
@@ -64,6 +69,14 @@ public class Game implements Parcelable {
      * The constant GAME_SIZE_LARGE.
      */
     public static int GAME_SIZE_LARGE = 64;
+    /**
+     * The constant GAME_SIZE_XLARGE.
+     */
+    public static int GAME_SIZE_XLARGE = 81;
+    /**
+     * The constant GAME_SIZE_XXL.
+     */
+    public static int GAME_SIZE_XXL = 100;
 
 
     private int difficultyLevel = LEVEL_BEGINNER;

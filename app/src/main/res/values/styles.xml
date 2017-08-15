@@ -11,6 +11,15 @@
         <item name="android:textAppearance">@style/StandardFontStyle</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
     <!--Base font style-->
     <style name="StandardFontStyle" parent="@android:style/TextAppearance.Material.Medium">
         <item name="android:fontFamily">sans-serif</item>
@@ -28,6 +37,26 @@
         <item name="android:padding">@dimen/button_padding</item>
         <item name="android:drawablePadding">@dimen/button_drawable_padding</item>
         <item name="android:layout_margin">@dimen/button_margin</item>
+    </style>
+
+    <!--LEVEL GRID STYLES-->
+    <style name="BoxFrameStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MarginFrameStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="BoxTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/StandardFontStyle</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">15dp</item>
     </style>
 
 

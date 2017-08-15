@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String CHOSEN_LEVEL = "Chosen Level";
     int levelChosen;
 
+    @BindView(R.id.arrow_left)
+    ImageView arrowLeft;
+    @BindView(R.id.arrow_right)
+    ImageView arrowRight;
     @BindView(R.id.level_selector)
     CyclicView levelSelectorView;
     CyclicPageAdapter cyclicPageAdapter;
@@ -82,16 +86,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch(id){
             case R.id.start_game:
-                Intent intent = new Intent(this, GameActivity.class);
+                Intent intent = new Intent(this, LevelActivity.class);
                 levelChosen = levelSelectorView.getCurrentPosition() + 5;
                 intent.putExtra(CHOSEN_LEVEL, levelChosen);
                 Toast.makeText(this, levelList.get(levelChosen - 5), Toast.LENGTH_LONG).show();
                 startActivity(intent);
+                break;
+            case R.id.arrow_left:
+                levelSelectorView.setCurrentPosition(levelSelectorView.getCurrentPosition() + levelList.size());
+                break;
+            case R.id.arrow_right:
+                levelSelectorView.setCurrentPosition(levelSelectorView.getCurrentPosition() + 1);
+                break;
         }
     }
 
     /**
-     * A placeholder fragment containing the chosen level.
+     * A fragment containing the chosen level and it's icon.
      */
     public static class LevelSelectorFragment extends Fragment {
         /**

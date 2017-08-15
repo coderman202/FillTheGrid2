@@ -13,6 +13,7 @@
         android:layout_width="@dimen/level_icon_height_width"
         android:layout_height="@dimen/level_icon_height_width"
         android:layout_weight="2"
+        android:contentDescription="@string/content_desc_level_icon"
         tools:src="@drawable/level_genius"/>
 
     <TextView

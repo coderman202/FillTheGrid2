@@ -64,7 +64,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         levelChosen = getIntent().getIntExtra(CHOSEN_LEVEL, 0);
 
         if (savedInstanceState == null) {
-            game = new Game(levelChosen, Game.GAME_SIZE_LARGE);
+            game = new Game(levelChosen, Game.GAME_SIZE_XXL);
         } else {
             game = savedInstanceState.getParcelable(GAME_STATE);
             prevColorResID = savedInstanceState.getInt(PREVIOUS_COLOR_RES_ID);
