@@ -16,6 +16,9 @@
 
     <color name="button_text_color">#FFFFFF</color>
 
+    <color name="stage_incomplete_color">#BDBDBD</color>
+    <color name="stage_complete_color">#FFEA00</color>
+
     <!--GAME GRID COLORS-->
     <color name="grid_blue">#304FFE</color>
     <color name="grid_grey_blue">#455A64</color>

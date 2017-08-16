@@ -56,6 +56,16 @@
     <string name="io_exception">Unknown IO exception</string>
     <string name="start_game">Start Game</string>
 
+    <!--Content Uri Exceptions-->
+    <string name="content_uri_stage_score_exception">Score must be null initially</string>
+    <string name="content_uri_stage_size_exception">Size must be a square number and must not be null</string>
+    <string name="content_uri_difficulty_level_name_exception">Name must not be null</string>
+    <string name="content_uri_unsupported_deletion_exception">Deletion is not supported for <xliff:g name="URI">%s</xliff:g></string>
+    <string name="content_uri_unsupported_update_exception">Update is not supported for <xliff:g name="URI">%s</xliff:g></string>
+    <string name="content_uri_unsupported_insertion_exception">Insertion is not supported for <xliff:g name="URI">%s</xliff:g></string>
+    <string name="content_uri_insert_failure_exception">Failed to insert row for <xliff:g name="URI">%s</xliff:g></string>
+    <string name="content_uri_unknown_exception">Unknown URI <xliff:g name="URI">%s</xliff:g> for <xliff:g name="UriMatcher">%d</xliff:g></string>
+
     <!--CONTENT DESCRIPTION STRINGS-->
     <string name="content_desc_left_arrow">Press here to choose the next level</string>
     <string name="content_desc_right_arrow">@string/content_desc_left_arrow</string>

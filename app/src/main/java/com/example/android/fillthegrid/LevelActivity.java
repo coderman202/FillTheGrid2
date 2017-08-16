@@ -153,7 +153,7 @@ public class LevelActivity extends AppCompatActivity {
                 border.setStroke(5, colorArray[pageNumber - 1]);
                 boxLayout.setBackground(border);
                 String str = i + "";
-                tv.setText(str);
+                tv.setBackgroundResource(R.drawable.stage_complete);
                 boxLayout.addView(tv);
                 boxMargin.addView(boxLayout);
                 levelGridLayout.addView(boxMargin);
