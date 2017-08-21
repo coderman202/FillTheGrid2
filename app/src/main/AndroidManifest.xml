@@ -16,12 +16,24 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <provider
+            android:name=".data.FillTheGridProvider"
+            android:authorities="com.example.android.fillthegrid"
+            android:exported="false"/>
         <activity android:name=".GameActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.fillthegrid.MainActivity"/>
         </activity>
         <activity
             android:name=".LevelActivity"
             android:label="@string/title_activity_level"
             android:theme="@style/AppTheme.NoActionBar">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.fillthegrid.MainActivity"/>
         </activity>
     </application>
 

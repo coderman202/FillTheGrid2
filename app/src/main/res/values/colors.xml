@@ -3,7 +3,7 @@
     <color name="colorPrimary">#311B92</color>
     <color name="colorPrimaryDark">#512DA8</color>
     <color name="colorAccent">#FFFFFF</color>
-    <color name="colorBackground">#F3EFF5</color>
+    <color name="colorBackground">#CFD8DC</color>
 
     <color name="base_font_color">#000000</color>
 
@@ -15,6 +15,10 @@
     <color name="button_start_color">#7C4DFF</color>
 
     <color name="button_text_color">#FFFFFF</color>
+
+    <!--DOT SELECTOR COLORS FOR TAB LAYOUT-->
+    <color name="dot_default_color">#BDBDBD</color>
+    <color name="dot_selected_color">@color/colorPrimaryDark</color>
 
     <color name="stage_incomplete_color">#BDBDBD</color>
     <color name="stage_complete_color">#FFEA00</color>

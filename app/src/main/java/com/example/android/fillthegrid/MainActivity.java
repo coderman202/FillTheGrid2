@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.fillthegrid.data.FillTheGridDBHelper;
 import com.example.android.fillthegrid.utils.GameSetupUtils;
 
 import org.malcdevelop.cyclicview.CyclicFragmentAdapter;
@@ -58,8 +59,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initCyclicViewPager();
 
-
         startGameView.setOnClickListener(this);
+
+        FillTheGridDBHelper dbHelper = new FillTheGridDBHelper(this);
+        dbHelper.testDB();
     }
 
     private void initCyclicViewPager() {

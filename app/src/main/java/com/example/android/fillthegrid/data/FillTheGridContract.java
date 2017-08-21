@@ -47,10 +47,10 @@ public class FillTheGridContract {
         public static final String PK_GAME_STAGE_ID = BaseColumns._ID;
 
         // Other column names
-        public static final String DIFFICULTY_LEVEL_ID = "DifficultyLevelID";
-        public static final String SIZE = "Size";
-        public static final String SCORE = "Score";
-        public static final String TARGET_SCORE = "Score";
+        public static final String FK_DIFFICULTY_LEVEL_ID = "StageDifficultyLevelID";
+        public static final String SIZE = "StageSize";
+        public static final String SCORE = "StageScore";
+        public static final String TARGET_SCORE = "StageTargetScore";
     }
 
     public static final class DifficultyLevel implements BaseColumns {

@@ -1,28 +1,32 @@
 package com.example.android.fillthegrid;
 
-import android.graphics.drawable.GradientDrawable;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.example.android.fillthegrid.utils.GlobalUtils;
+import com.example.android.fillthegrid.adapters.GameStageAdapter;
+import com.example.android.fillthegrid.data.FillTheGridContract;
 
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -36,15 +40,35 @@ public class LevelActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private SectionsPagerAdapter gameStagesSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
+    @BindView(R.id.level_container)
+    ViewPager gameStagesViewPager;
 
     @BindView(R.id.dot_layout)
     TabLayout dotLayout;
+
+    @BindView(R.id.level_toolbar)
+    Toolbar toolbar;
+
+    public static final String CHOSEN_LEVEL = "Chosen Level";
+    public static int levelChosen;
+
+    @BindArray(R.array.grid_dimensions_array)
+    int[] sizesArray;
+
+    // Array of columns to be passed when a query to the Game Stage Table is made
+    public static final String[] GAME_STAGE_ENTRY_COLUMNS = {
+            FillTheGridContract.GameStageEntry.PK_GAME_STAGE_ID,
+            FillTheGridContract.GameStageEntry.FK_DIFFICULTY_LEVEL_ID,
+            FillTheGridContract.GameStageEntry.SIZE,
+            FillTheGridContract.GameStageEntry.SCORE,
+            FillTheGridContract.GameStageEntry.TARGET_SCORE
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,25 +77,19 @@ public class LevelActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.level_toolbar);
+        levelChosen = getIntent().getIntExtra(CHOSEN_LEVEL, 0);
+
         setSupportActionBar(toolbar);
+
+        dotLayout.setupWithViewPager(gameStagesViewPager);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        gameStagesSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.level_container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        gameStagesViewPager.setAdapter(gameStagesSectionsPagerAdapter);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.level_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
     }
 
@@ -101,16 +119,33 @@ public class LevelActivity extends AppCompatActivity {
     /**
      * The fragment for displaying the grid of 20 levels for each size.
      */
-    public static class LevelFragment extends Fragment {
+    public static class LevelFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        public static final int LOADER_ID = 1;
+
+        // Array of columns to be passed when a query to the Game Stage Table is made
+        public static final String[] GAME_STAGE_ENTRY_COLUMNS = {
+                FillTheGridContract.GameStageEntry.PK_GAME_STAGE_ID,
+                FillTheGridContract.GameStageEntry.FK_DIFFICULTY_LEVEL_ID,
+                FillTheGridContract.GameStageEntry.SIZE,
+                FillTheGridContract.GameStageEntry.SCORE,
+                FillTheGridContract.GameStageEntry.TARGET_SCORE
+        };
+
 
         @BindView(R.id.level_grid_layout)
-        GridLayout levelGridLayout;
+        RecyclerView levelGridView;
+
+        GridLayoutManager layoutManager;
+
+        GameStageAdapter adapter;
+
+        LoaderManager loaderManager;
 
         public LevelFragment() {
         }
@@ -127,6 +162,7 @@ public class LevelActivity extends AppCompatActivity {
             return fragment;
         }
 
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -136,30 +172,52 @@ public class LevelActivity extends AppCompatActivity {
 
             int pageNumber = getArguments().getInt(ARG_SECTION_NUMBER);
 
-            levelGridLayout.setColumnCount(4);
-
-            Integer[] colorArray = GlobalUtils.getColorArray(getContext());
-
-            // Styles for the grid items
-            ContextThemeWrapper boxLayoutStyle = new ContextThemeWrapper(getContext(), R.style.BoxFrameStyle);
-            ContextThemeWrapper boxTextStyle = new ContextThemeWrapper(getContext(), R.style.BoxTextStyle);
-            ContextThemeWrapper boxMarginStyle = new ContextThemeWrapper(getContext(), R.style.MarginFrameStyle);
-
-            for (int i = 0; i < 20; i++) {
-                LinearLayout boxLayout = new LinearLayout(boxLayoutStyle);
-                LinearLayout boxMargin = new LinearLayout(boxMarginStyle);
-                TextView tv = new TextView(boxTextStyle);
-                GradientDrawable border = (GradientDrawable) getContext().getDrawable(R.drawable.level_item_border);
-                border.setStroke(5, colorArray[pageNumber - 1]);
-                boxLayout.setBackground(border);
-                String str = i + "";
-                tv.setBackgroundResource(R.drawable.stage_complete);
-                boxLayout.addView(tv);
-                boxMargin.addView(boxLayout);
-                levelGridLayout.addView(boxMargin);
-            }
+            loaderManager = getLoaderManager();
+            layoutManager = new GridLayoutManager(this.getContext(), 4);
+            levelGridView.setLayoutManager(layoutManager);
+            adapter = new GameStageAdapter(getContext(), pageNumber);
+            levelGridView.setAdapter(adapter);
+            Log.e("dfgdfgdf", "oncreateview");
+            loaderManager.restartLoader(LOADER_ID, null, this);
 
             return rootView;
+        }
+
+        @Override
+        public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+            Log.e("dfgdfgdf", "actcreate");
+            loaderManager.restartLoader(LOADER_ID, null, this);
+            super.onActivityCreated(savedInstanceState);
+        }
+
+        @Override
+        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+            String sortOrder = FillTheGridContract.GameStageEntry.PK_GAME_STAGE_ID + " ASC";
+
+            Uri gameStageUri = FillTheGridContract.GameStageEntry.CONTENT_URI;
+
+            Log.e("Uri", gameStageUri.toString());
+
+            int size = getArguments().getInt(ARG_SECTION_NUMBER) + 4;
+            size = size * size;
+
+            String whereClause = FillTheGridContract.GameStageEntry.FK_DIFFICULTY_LEVEL_ID + " = " +
+                    (levelChosen - 4) + " AND " + FillTheGridContract.GameStageEntry.SIZE + " = " + size + ";";
+
+            Log.e("level", "" + (levelChosen - 4));
+            Log.e("where", whereClause);
+
+            return new CursorLoader(getContext(), gameStageUri, GAME_STAGE_ENTRY_COLUMNS, whereClause, null, sortOrder);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+            adapter.swapCursor(data);
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+            adapter.swapCursor(null);
         }
     }
 
@@ -182,8 +240,8 @@ public class LevelActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 6 total pages.
-            return 6;
+            // Show 1 page for each grid size.
+            return sizesArray.length;
         }
 
         @Override

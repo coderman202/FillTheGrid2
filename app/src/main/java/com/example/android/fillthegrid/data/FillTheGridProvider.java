@@ -30,7 +30,7 @@ public class FillTheGridProvider extends ContentProvider {
 
     // Game Stage Columns
     private static final String GAME_STAGE_ID = FillTheGridContract.GameStageEntry.PK_GAME_STAGE_ID;
-    private static final String GAME_STAGE_DIFFICULTY_LEVEL = FillTheGridContract.GameStageEntry.DIFFICULTY_LEVEL_ID;
+    private static final String GAME_STAGE_DIFFICULTY_LEVEL = FillTheGridContract.GameStageEntry.FK_DIFFICULTY_LEVEL_ID;
     private static final String GAME_STAGE_TARGET_SCORE = FillTheGridContract.GameStageEntry.TARGET_SCORE;
     private static final String GAME_STAGE_SCORE = FillTheGridContract.GameStageEntry.SCORE;
     private static final String GAME_STAGE_SIZE = FillTheGridContract.GameStageEntry.SIZE;
@@ -110,6 +110,7 @@ public class FillTheGridProvider extends ContentProvider {
         switch (match) {
             case GAME_STAGE_TABLE:
                 cursor = db.query(GAME_STAGE_TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                Log.e("stagtable", cursor.toString());
                 break;
             case GAME_STAGE_TABLE_ROW:
                 selection = FillTheGridContract.GameStageEntry.PK_GAME_STAGE_ID + "=?";
@@ -171,9 +172,9 @@ public class FillTheGridProvider extends ContentProvider {
             throw new IllegalArgumentException(dbHelper.getContext().getString(R.string.content_uri_stage_size_exception));
         }
 
-
         // Get writable database
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+
 
         // Insert the new product with the given values
         long id = db.insert(GAME_STAGE_TABLE_NAME, null, values);
